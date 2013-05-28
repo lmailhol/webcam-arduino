@@ -28,18 +28,18 @@ void loop() {
   if (readSerial.length() >0) {
     Serial.println("Chaine : "); 
     Serial.println(readSerial); //xxxxxx
-    servo1 = readSerial.substring(0, 2); //get the first two characters
-    servo2 = readSerial.substring(2, 4); //get the next two characters     
+    servo1 = readSerial.substring(0, 3); //get the first two characters
+    servo2 = readSerial.substring(3, 6); //get the next two characters     
     Serial.println("Servomoteur 1 : "); 
     Serial.println(servo1);
     Serial.println("Servomoteur 2 : ");
     Serial.println(servo2);
     
-    char carray1[4]; //magic needed to convert string to a number 
+    char carray1[6]; //magic needed to convert string to a number 
     servo1.toCharArray(carray1, sizeof(carray1));
     servoSpeed = atoi(carray1); 
       
-    char carray2[4];
+    char carray2[6];
     servo2.toCharArray(carray2, sizeof(carray2));
     servoSpeed2 = atoi(carray2); 
     //lancement de la fonction servoTurn
