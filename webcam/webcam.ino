@@ -7,10 +7,10 @@ a une carte Arduino Uno. Pour autant, je ne saurais que vous conseiller d'adapte
 
 #include <Servo.h>
 
-#define SPEED 3
+#define SPEED 3 //broche de vitesse et de direction donnée par la documentation de notre controleur moteur
 #define DIRECTION 12
 
-Servo myservo;
+Servo myservo; //deux servomoteurs
 Servo myservo2;
 
 int servoSpeed; //vitesse de rotation du servomoteur continue
@@ -28,15 +28,15 @@ void setup() {
   pinMode(DIRECTION, OUTPUT); //broche direction
   pinMode(SPEED, OUTPUT); //broche vitesse
   
-  motorSpeed = 125;  
+  motorSpeed = 125; //vitesse du moteur 
 }
 
 void loop() {
   while (Serial.available()) {
     delay(1);  
     if (Serial.available() >0) {
-      char c = Serial.read();  //gets one byte from serial buffer
-      readSerial += c; //makes the string readSerial
+      char c = Serial.read(); //recuperation de la valeur envoyee au port serie
+      readSerial += c; //rendre la chaine lisible
     } 
   }
   if (readSerial.length() >0) {
@@ -45,6 +45,7 @@ void loop() {
     servo1 = readSerial.substring(0, 2); //recuperation des deux premiers caracteres (servo1)
     servo2 = readSerial.substring(2, 4); //recuperation des deux suivants (servo2)     
     motor = readSerial.substring(4, 5); //recuperation du dernier (moteur a courant continu)
+    
     Serial.println("Servomoteur 1 : "); //affichage dans la console pour verifier visuellement
     Serial.println(servo1);
     Serial.println("Servomoteur 2 : ");
