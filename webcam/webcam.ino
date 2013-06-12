@@ -1,5 +1,5 @@
 /*
-Le code si contre fonctionne avec deux servomoteurs a rotation continue, un moteur a courant continu, le tout grace
+Le code ci-contre fonctionne avec deux servomoteurs a rotation continue, un moteur a courant continu, le tout grace
 a une carte Arduino Uno. Pour autant, je ne saurais que vous conseiller d'adapter le programme a des servomoteurs
 "normaux" fonctionnants avec des valeurs d'angle.
 =================================================================
