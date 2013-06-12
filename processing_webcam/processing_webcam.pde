@@ -2,71 +2,87 @@ import processing.serial.*;
 
 Serial SerialPort;
 
-String valeur; //valeur envoyée
-
+int y = 0;
+String valeur;
 
 void setup(){
-  size(100,100);
-  background(255);
-  println(Serial.list());
+  size(200,200);
+  textSize(80);
+  println("Bienvenue");
   SerialPort = new Serial(this, Serial.list()[0], 115200);
-  delay(100);
+}
+
+void draw() {
+  background(204);
 }
 
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
-      background(0);
-      valeur = "020000";
+      valeur = "87902";
+      println(valeur);
       SerialPort.write(valeur);
-      delay(100);
     }
     else if (keyCode == DOWN) {
-      background(0);
-      valeur = "140000";
+      valeur = "93902";
+      println(valeur);
       SerialPort.write(valeur);
       delay(100);
     }
     else if (keyCode == RIGHT) {
-      background(0);
-      valeur = "000020";
+      valeur = "90922";
+      println(valeur);
       SerialPort.write(valeur);
       delay(100);
     }
     else if (keyCode == LEFT) {
-      background(0);
-      valeur = "000140";
+      valeur = "90882";
+      println(valeur);
       SerialPort.write(valeur);
       delay(100);
     }
+  }
+  
+  if (key == 'a') {
+      valeur = "90902";
+      println(valeur);
+      SerialPort.write(valeur);
+  }
+  if (key == 'p') {
+      valeur = "90900";
+      println(valeur);
+      SerialPort.write(valeur);
+  }
+  if (key == 'm') {
+      valeur = "90901";
+      println(valeur);
+      SerialPort.write(valeur);
   }
 }
 
-void keyReleased() {
+/*void keyReleased() {
   if (key == CODED) {
     if (keyCode == UP) {
-      background(255);
-      valeur = "095000";
+      background(0);
+      valeur = "9090";
+      println(valeur);
       SerialPort.write(valeur);
       delay(100);
     }
     else if (keyCode == DOWN) {
-      background(255);
-      valeur = "095000";
+      valeur = "9090";
+      println(valeur);
       SerialPort.write(valeur);
-      delay(100);
     }
     else if (keyCode == RIGHT) {
-      background(0);
-      valeur = "000095";
+      valeur = "9090";
+      println(valeur);
       SerialPort.write(valeur);
-      delay(100);
     }
     else if (keyCode == LEFT) {
-      background(0);
-      valeur = "000095";
+      valeur = "9090";
+      println(valeur);
       SerialPort.write(valeur);
-      delay(100);
     }
   }
-}
+} */
