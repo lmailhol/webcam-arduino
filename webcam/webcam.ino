@@ -1,3 +1,10 @@
+/*
+Le code si contre fonctionne avec deux servomoteurs a rotation continue, un moteur a courant continu, le tout grace
+a une carte Arduino Uno. Pour autant, je ne saurais que vous conseiller d'adapter le programme a des servomoteurs
+"normaux" fonctionnants avec des valeurs d'angle.
+=================================================================
+*/
+
 #include <Servo.h>
 
 #define SPEED 3
@@ -35,42 +42,50 @@ void loop() {
   if (readSerial.length() >0) {
     Serial.println("Chaine : "); 
     Serial.println(readSerial); //xxxxxx
-    servo1 = readSerial.substring(0, 2); //get the first two characters
-    servo2 = readSerial.substring(2, 4); //get the next two characters     
-    motor = readSerial.substring(4, 5);
-    Serial.println("Servomoteur 1 : "); 
+    servo1 = readSerial.substring(0, 2); //recuperation des deux premiers caracteres (servo1)
+    servo2 = readSerial.substring(2, 4); //recuperation des deux suivants (servo2)     
+    motor = readSerial.substring(4, 5); //recuperation du dernier (moteur a courant continu)
+    Serial.println("Servomoteur 1 : "); //affichage dans la console pour verifier visuellement
     Serial.println(servo1);
     Serial.println("Servomoteur 2 : ");
     Serial.println(servo2);
     Serial.println("Motor Courant Continu : ");
     Serial.println(motor);
     
-    char carray1[5]; //magic needed to convert string to a number 
-    servo1.toCharArray(carray1, sizeof(carray1));
-    servoSpeed = atoi(carray1); 
+    //convertion en int de chaques chaines (possibilite d'utiliser toInt(), aussi, manifestement)
+    
+      char carray1[5]; 
+      servo1.toCharArray(carray1, sizeof(carray1));
+      servoSpeed = atoi(carray1); 
       
-    char carray2[5];
-    servo2.toCharArray(carray2, sizeof(carray2));
-    servoSpeed2 = atoi(carray2); 
+      char carray2[5];
+      servo2.toCharArray(carray2, sizeof(carray2));
+      servoSpeed2 = atoi(carray2); 
     
-    char carray3[5];
-    motor.toCharArray(carray3, sizeof(carray3));
-    motorDirection = atoi(carray3); 
+      char carray3[5];
+      motor.toCharArray(carray3, sizeof(carray3));
+      motorDirection = atoi(carray3); 
     
-    myservo.attach(8);
+   
+    myservo.attach(8); //on attache les servomoteurs
     myservo2.attach(9);
-    myservo.write(servoSpeed);
+    myservo.write(servoSpeed); //on envoie la valeur de vitesse
     myservo2.write(servoSpeed2);
     
-    analogWrite(SPEED, motorSpeed);
+    analogWrite(SPEED, motorSpeed); //controle du moteur a courant continu
     
-    if(motorDirection == 0) {
-      digitalWrite(DIRECTION,HIGH);
+    if(motorDirection == 0) { //si la direction est de 0 on fait tourner dans un sens, sinon dans l'autre
+      digitalWrite(DIRECTION,HIGH); 
     } else if(motorDirection == 1) {
       digitalWrite(DIRECTION,LOW);
     } else if(motorDirection == 2) {
       analogWrite(SPEED, 0);
     }
+    
+    /*bout de programme test afin de couper completement les servomoteurs à rotation continue que nous utilisons et
+    qui sont très embettants sur ce point (malheureusement, il s'agissait d'une contrainte du cahier des charges).
+    Le but était de detacher le servomoteur une fois qu'il n'etait plus en court d'usage. Mais il n'était alors
+    pas bloqué et retombait lourdement sous le poid du systeme*/
 
     /*if (myservo.attached() && myservo2.attached()) {
       if (servoSpeed != 90 || servoSpeed2 != 90) {
@@ -90,6 +105,7 @@ void loop() {
         myservo2.write(servoSpeed2);
       }
     }*/
+    
     //remise a zero de la valeur de recuperation
     //servo1 = "";
     //servo2 = "";
