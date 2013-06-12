@@ -54,17 +54,20 @@ void keyPressed() {
       valeur = "90900";
       println(valeur);
       SerialPort.write(valeur);
+      delay(100)
   }
   if (key == 'm') {
       valeur = "90901";
       println(valeur);
       SerialPort.write(valeur);
+      delay(100)
   }
   
   if (key == 'a') { //"a" pour tout stopper
       valeur = "90902";
       println(valeur);
       SerialPort.write(valeur);
+      delay(100)
   }
 }
 
